@@ -1,38 +1,37 @@
-# sv
+## Development
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+In order to run the website locally, make sure you have Node.js and npm (or a compatible alternative) installed.
 
-## Creating a project
+### Install dependencies
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+```shell
+npm install
 ```
 
-## Developing
+### Run locally
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+```shell
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+### Run locally over local network
 
-To create a production version of your app:
+Great way to test on a physical mobile device.
 
-```sh
+```shell
+npm run dev -- --host
+```
+
+### Build and preview
+
+In order to test a local static build and preview it, you can run the following commands:
+```shell
 npm run build
+npm run preview
 ```
 
-You can preview the production build with `npm run preview`.
+## Publish
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+In order to publish, create a PR against the [main](https://github.com/jsafarik/kombuchas/tree/main) branch of this repository. The PR will trigger a [preview](.github/workflows/preview-pr.yml) GitHub workflow, trying to deploy the web to a preview channel.
+
+Once the PR is merged, a [deploy](.github/workflows/deploy.yml) GitHub workflow runs, deploying to a live channel.
