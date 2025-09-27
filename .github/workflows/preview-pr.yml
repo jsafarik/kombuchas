@@ -1,0 +1,28 @@
+name: preview-pr
+'on':
+  pull_request:
+    branches:
+      - 'main'
+    paths-ignore:
+      - 'README.md'
+
+permissions:
+  pull-requests: write
+  checks: write
+  contents: read
+
+jobs:
+  build_and_preview:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 'Generate site'
+        shell: bash
+        run: npm ci && npm run check && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          projectId: kombuchas-web
+          channelId: ${{ inputs.channel }}
